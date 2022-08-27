@@ -7,7 +7,7 @@
 #   This script also handles the creation of a kubernetes secret containing data
 #       on the provisioned cluster.  
 #
-
+set -x
 OPERATION=$(echo $OPERATION | tr '[:lower:]' '[:upper:]')
 
 if [[ "$OPERATION" == "DESTROY" ]]; then
@@ -40,7 +40,7 @@ if [[ "$OPERATION" == "DESTROY" ]]; then
         ./destroy.sh ${OUTPUT_DEST}/${CLUSTER_NAME}/json
         popd
     else
-        echo "Platform ${TARGET} currently unsupported via image/kubernetes job.  Exiting"
+        echo "Platform ${TARGET_KS} currently unsupported via image/kubernetes job.  Exiting"
         exit 0
     fi
 elif [[ "$OPERATION" == "CREATE" ]]; then
@@ -111,10 +111,12 @@ elif [[ "$OPERATION" == "CREATE" ]]; then
                 --from-literal=region=`cat ${STATE_FILE} | jq -r '.REGION'`;
         popd
     else
-        echo "Platform ${TARGET} currently unsupported via image/kubernetes job.  Exiting"
+        echo "Platform ${TARGET_KS} currently unsupported via image/kubernetes job.  Exiting"
+        set +x
         exit 0
     fi
 else
     echo "Operation '${OPERATION}' not supported, only supported operations are 'CREATE' or 'DESTROY'."
+    set +x
     exit 1
 fi

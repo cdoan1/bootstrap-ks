@@ -6,18 +6,18 @@ generatorOptions:
   disableNameSuffixHash: true
 
 # namespace to deploy all Resources to
-namespace: bootstrap-ks
+namespace: open-cluster-management-pipelines
 
 # Point to the target job image
-images:
-  - name: bootstrap
-    newName: quay.io/gurnbenibm/bootstrapks
-    newTag: latest
+# images:
+#   - name: bootstrap
+#     newName: quay.io/gurnbenibm/bootstrapks
+#     newTag: latest
 
 # list of Resource Config to be Applied
-resources:
-  - bootstrap-ks.job.yaml
-  - prereqs.yaml
+# resources:
+#   - bootstrap-ks.job.yaml
+#   - prereqs.yaml
 
 secretGenerator:
 - name: bootstrap-ks-config
